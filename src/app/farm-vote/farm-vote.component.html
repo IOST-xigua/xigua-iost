@@ -1,0 +1,51 @@
+<div style="height: 100%; width: 100%; z-index: 3; position: absolute;">
+  <div style="height: 100%; width: 100%; z-index: 2; opacity: 0.7; background-color: black;"></div>
+
+  <div class="xg-farm-vote">
+    <div class="card xg-farm-vote-outerbox">
+      <div>
+        <h5>{{['投票选新池','Vote for new vaults'][language]}}</h5>
+      </div>
+      <div>
+        <p>{{['得票超过5%的币种自动获得xusd交易对0.5权重的激励','If a token gets more than 5% votes, its xusd pair will get 0.5 point in vaults'][language]}}
+        </p>
+        <p>{{['总票数','total votes'][language]}}: {{totalVote}}
+        </p>
+      </div>
+      <div style="width: 100%; height: 260px; overflow-y: auto">
+      <table width="90%">
+        <thead>
+          <td>{{['币名','Token'][language]}}</td>
+          <td>{{['得票','Votes'][language]}}</td>
+          <td>{{['占比','Alloc'][language]}}</td>
+          <td></td>
+        </thead>
+        <tbody>
+          <tr *ngFor="let obj of array">
+            <td>{{obj.name}}</td>
+            <td>{{obj.vote}}</td>
+            <td>{{obj.default}} + {{obj.more}}</td>
+            <td>
+              <button class="btn btn-sm btn-light" style="width:100%; margin-top: 10px;" (click)="vote(obj.name)">{{['投票','vote'][language]}}</button>
+            </td>
+          </tr>
+        </tbody>
+      </table>
+      </div>
+      <div>
+        <button class="btn btn-dark" style="width:100%; margin-top: 10px;" (click)="close()">{{['关闭','Close'][language]}}</button>
+      </div>
+    </div>
+  </div>
+</div>
+
+<app-alert-message
+  #alertMessage
+  [titleCN]="alertTitleCN"
+  [titleEN]="alertTitleEN"
+  [bodyCN]="alertBodyCN"
+  [bodyEN]="alertBodyEN"
+  style="height: 100%; width: 100%; z-index: 14; position: absolute; top: 0"
+  *ngIf="willShowAlertMessage"
+  (onClose)="closeAlert()">
+</app-alert-message>

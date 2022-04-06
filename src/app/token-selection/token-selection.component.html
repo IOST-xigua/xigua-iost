@@ -1,0 +1,27 @@
+<div style="height: 100%; width: 100%; z-index: 3; position: absolute;">
+  <div style="height: 100%; width: 100%; z-index: 2; opacity: 0.7; background-color: black;"></div>
+
+  <div class="xg-token-selection">
+    <div class="card xg-token-selection-outerbox">
+      <div>
+        <input class="form-control" type="text" placeholder="{{['搜索代币', 'Search token name'][language]}}" (keyup)="search($event)">
+      </div>
+      <div class="xg-token-selection-innerbox">
+        <div class="xg-token-selection-item row" *ngFor="let token of allTokens;" (click)="select(token.name)">
+          <div class="col col-3">
+            <img src="/assets/tokens/{{token.image}}.png">
+          </div>
+          <div class="col col-3">
+            {{token.name}}
+          </div>
+          <div class="col">
+            {{token.balance}}
+          </div>
+        </div>
+      </div>
+      <div>
+        <button class="btn btn-sm btn-dark" style="margin: 5px" (click)="close()">{{['关闭','Close'][language]}}</button>
+      </div>
+    </div>
+  </div>
+</div>

@@ -1,0 +1,127 @@
+.xg-bank {
+  position: absolute;
+  left: 50%;
+  top: 50%;
+  -webkit-transform: translate(-50%,-50%);
+  transform: translate(-50%,-50%);
+  max-width: 100%;
+  width: 400px;
+}
+
+.xg-bank .xg-bank-bound {
+  max-width: 600px;
+  margin-left: auto;
+  margin-right: auto;
+}
+
+.xg-bank .xg-bank-jumbotron {
+  max-width: 600px;
+  margin: 20px auto;
+  padding: 8px;
+  overflow-x: hidden;
+  overflow-y: auto;
+}
+
+.xg-bank-position {
+  max-width: 100%;
+  width: 400px;
+  transition: 1s;
+}
+
+.xg-bank-tabs {
+  position: relative;
+  top: 1px;
+  text-align: center;
+  width: 100%;
+}
+
+.xg-bank-one-tab {
+  position: relative;
+  background-color: #242a30;
+  background-clip: border-box;
+  border-top-left-radius: 0.25rem;
+  border-top-right-radius: 0.25rem;
+  min-width: 70px;
+  display: inline-block;
+  padding: 10px;
+  margin: 0 4px;
+  text-align: center;
+  border-top-color: rgba(0, 0, 0, 0.6);
+  border-top-style: solid;
+  border-top-width: 1px;
+  border-right-color: rgba(0, 0, 0, 0.6);
+  border-right-style: solid;
+  border-right-width: 1px;
+  border-left-color: rgba(0, 0, 0, 0.6);
+  border-left-style: solid;
+  border-left-width: 1px;
+  -webkit-user-select: none;
+  -moz-user-select: none;
+  -ms-user-select: none;
+  user-select: none;
+  cursor: pointer;
+}
+
+.xg-bank-one-tab.active {
+  background-color: #32383e;
+  z-index: 1;
+}
+
+.xg-bank-container {
+  padding: 20px;
+  -webkit-touch-callout: none;
+  -webkit-user-select: none;
+  -khtml-user-select: none;
+  -moz-user-select: none;
+  -ms-user-select: none;
+  user-select: none;
+  user-drag: none;
+  -webkit-user-drag: none;
+}
+
+.xg-bank-pannel {
+  border: none;
+  padding: 12px 30px;
+}
+
+.xg-bank-pannel .row .col {
+  padding-right: 4px;
+  padding-left: 4px;
+}
+
+.xg-bank-pannel .row .col input {
+  height: auto;
+  background-color: #3A3F44;
+  border-color: #3A3F44;
+  color: white;
+  padding: 0;
+}
+
+.xg-bank-direction {
+  margin: 4px;
+}
+
+.xg-bank-direction span {
+  display: inline-block;
+  font-weight: 400;
+  text-align: center;
+  white-space: nowrap;
+  vertical-align: middle;
+  -webkit-user-select: none;
+  -moz-user-select: none;
+  -ms-user-select: none;
+  user-select: none;
+  cursor: pointer;
+}
+
+.xg-bank-info {
+  position: relative;
+  top: -4px;
+  width: 380px;
+  max-width: 90%;
+  margin: auto;
+  padding: 24px 20px 20px 20px;
+  background-color: #22282e;
+  border: 0;
+  z-index: -1;
+}

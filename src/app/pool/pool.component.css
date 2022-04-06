@@ -1,0 +1,58 @@
+.xg-pool {
+  text-align: center;
+  overflow-y: auto;
+  overflow-x:hidden;
+  width: 100%;
+  padding: 15px 16px;
+  height: 100%;
+  margin-bottom:0px;
+  padding-bottom:0px;
+  position: absolute;
+  animation: fadein 1s;
+  -moz-animation: fadein 1s; /* Firefox */
+  -webkit-animation: fadein 1s; /* Safari and Chrome */
+  -o-animation: fadein 1s; /* Opera */
+}
+
+.xg-pool .xg-pool-bound {
+  max-width: 400px;
+  margin-left: auto;
+  margin-right: auto;
+}
+
+.xg-pool .xg-pool-jumbotron {
+  max-width: 400px;
+  margin: 20px auto;
+  padding: 8px;
+  overflow-x: hidden;
+  overflow-y: auto;
+}
+
+.xg-pool-bar .col {
+  padding: 0;
+}
+
+.xg-pool-card {
+  padding: 10px;
+}
+
+.xg-pool-card .row .col {
+  margin: 6px;
+}
+
+.xg-pool-manage {
+  display: inline-block;
+  font-weight: 400;
+  text-align: center;
+  white-space: nowrap;
+  vertical-align: middle;
+  -webkit-user-select: none;
+  -moz-user-select: none;
+  -ms-user-select: none;
+  user-select: none;
+  cursor: pointer;
+}
+
+.xg-pool-manage:hover {
+  color: white;
+}

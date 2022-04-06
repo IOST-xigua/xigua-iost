@@ -1,0 +1,12 @@
+<div class="xg-analytics">
+  <div class="row xg-analytics-bound">
+    <div class="col text-center">
+      <div class="btn-group btn-group-sm">
+        <div class="btn btn-sm btn-primary input-group-prepend" [ngClass]="{'active': tabId === 0}" (click)="gotoTab(0)">{{['整体','Overall'][language]}}</div>
+        <!--<div class="btn btn-sm btn-primary input-group-prepend" [ngClass]="{'active': tabId === 1}" (click)="gotoTab(1)">{{['交易对','Pairs'][language]}}</div>-->
+      </div>
+    </div>
+  </div>
+
+  <app-analytics-overall [profile]="profile" #analyticsOverall *ngIf="tabId === 0"></app-analytics-overall>
+</div>

@@ -1,0 +1,124 @@
+<div class="xg-pool">
+  <div class="jumbotron text-center xg-pool-jumbotron xg-pool-bound">
+    <h6 class="text-center" style="margin-top:8px;">
+      {{['流动性提供者可以按照流动池的占比，获得交易中0.25%的手续费。手续费将实时收取，并在您退出流动性的时候兑现。','Liquidity providers earn a 0.3% fee on all trades proportional to their share of the pool. Fees are added to the pool, accrue in real time and can be claimed by withdrawing your liquidity.'][language]}}
+    </h6>
+  </div>
+
+  <div class="row xg-pool-bar xg-pool-bound" style="margin-bottom: 20px">
+    <div class="col col-auto text-left">
+      {{['您加入的流动池', 'Your liquidity'][language]}}
+    </div>
+    <div class="col text-right">
+      <button class="btn btn-sm btn-light" style="margin-right:12px" (click)="showCreatePair()">{{['创建交易对','Create a Pair'][language]}}</button>
+      <button class="btn btn-sm btn-danger" (click)="showAddLiquidity('','',-1)">{{['添加流动性','Add Liquidity'][language]}}</button>
+    </div>
+  </div>
+
+  <div *ngIf="waiting">
+    <img src="/assets/images/loading.gif" style="margin: 100px auto; display: block; width: 80px;">
+  </div>
+
+  <div *ngIf="!waiting">
+    <div class="card xg-pool-card xg-pool-bound" style="margin-bottom: 10px" *ngFor="let obj of myPairObjs; index as i">
+      <div class="row">
+        <div class="col text-left">
+          {{obj.token0}} / {{obj.token1}}
+        </div>
+        <div class="col text-right">
+          <span class="xg-pool-manage" (click)="showPair(i)" *ngIf="!obj.showing">{{['管理', 'Manage'][language]}} ↓</span>
+          <span class="xg-pool-manage" (click)="hidePair(i)" *ngIf="obj.showing">{{['收起', 'Collapse'][language]}} ↑</span>
+        </div>
+      </div>
+      <div class="row" *ngIf="obj.loading">
+        <div class="col text-center">
+          {{['加载中...','Loading...'][language]}}
+        </div>
+      </div>
+      <div class="xg-pool-line" *ngIf="obj.showing">
+        <div class="row">
+          <div class="col text-left">
+            {{['我的流动池凭证(XLP)','Your pool tokens(XLP)'][language]}}
+          </div>
+          <div class="col text-right">
+            {{obj.xlpAmount}}
+          </div>
+        </div>
+        <div class="row">
+          <div class="col text-left">
+            {{['我的池中','Pooled '][language]}}{{obj.token0}}
+          </div>
+          <div class="col text-right">
+            {{obj.token0Amount.toFixed(6)}}
+          </div>
+        </div>
+        <div class="row">
+          <div class="col text-left">
+            {{['我的池中','Pooled '][language]}}{{obj.token1}}
+          </div>
+          <div class="col text-right">
+            {{obj.token1Amount.toFixed(6)}}
+          </div>
+        </div>
+        <div class="row">
+          <div class="col text-left">
+            {{['我的流动池占比','Your pool share'][language]}}
+          </div>
+          <div class="col text-right">
+            {{+(obj.xlpShare * 100).toFixed(2)}}%
+          </div>
+        </div>
+        <div class="row">
+          <div class="col text-left">
+            <button class="btn btn-sm btn-dark" style="width: 100%" (click)="showAddLiquidity(obj.token0,obj.token1,i)">{{['添加','Add'][language]}}</button>
+          </div>
+          <div class="col text-right">
+            <button class="btn btn-sm btn-dark" style="width: 100%" (click)="showRemoveLiquidity(obj.token0,obj.token1,i)">{{['减少','Remove'][language]}}</button>
+          </div>
+        </div>
+      </div>
+    </div>
+  </div>
+</div>
+
+<app-create-pair
+  #createPair
+  style="height: 100%; width: 100%; z-index: 4; position: fixed; top: 0"
+  *ngIf="willShowCreatePair"
+  [profile]=profile
+  (onCreate)="onCreatePair()"
+  (onClose)="onCloseCreatePair()">
+</app-create-pair>
+
+<app-add-liquidity
+  #addLiquidity
+  style="height: 100%; width: 100%; z-index: 4; position: fixed; top: 0"
+  *ngIf="willShowAddLiquidity"
+  [profile]=profile
+  [tokenA]=addLiquidityTokenA
+  [tokenB]=addLiquidityTokenB
+  (onAdd)="onAddLiquidity()"
+  (onClose)="onCloseAddLiquidity()">
+</app-add-liquidity>
+
+<app-remove-liquidity
+  #removeLiquidity
+  style="height: 100%; width: 100%; z-index: 4; position: fixed; top: 0"
+  *ngIf="willShowRemoveLiquidity"
+  [profile]=profile
+  [token0]=removeLiquidityToken0
+  [token1]=removeLiquidityToken1
+  (onRemove)="onRemoveLiquidity($event)"
+  (onClose)="onCloseRemoveLiquidity()">
+</app-remove-liquidity>
+
+<app-alert-message
+  #alertMessage
+  [titleCN]="alertTitleCN"
+  [titleEN]="alertTitleEN"
+  [bodyCN]="alertBodyCN"
+  [bodyEN]="alertBodyEN"
+  style="height: 100%; width: 100%; z-index: 14; position: absolute; top: 0"
+  *ngIf="willShowAlertMessage"
+  (onClose)="closeAlert()">
+</app-alert-message>

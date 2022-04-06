@@ -1,0 +1,142 @@
+.container {
+	padding: 0;
+}
+
+.footer {
+	position: fixed;
+	left: 0;
+	bottom: 0;
+	width: 100%;
+}
+
+.footer-content {
+	border:1px solid rgba(0,0,0,0.6);
+	text-shadow:1px 1px 1px rgba(0,0,0,0.3);
+	padding: 0 1rem;
+}
+
+.footer-inner {
+	padding: 0.75rem 1rem calc(54px - 0.75rem - 30px);
+}
+
+.xigua {
+	color: #F45662 !important;
+}
+
+.gold {
+	color: #FFDF00 !important;
+}
+
+.log-address {
+	display: inline-block;
+	margin-bottom:-3px;
+	width:150px;
+	overflow:hidden;
+	text-overflow: ellipsis;
+	white-space: nowrap;
+}
+
+.cover-left {
+	border-top-left-radius: 0.25rem;
+	border-bottom-left-radius: 0.25rem;
+	border-top-right-radius: 0rem;
+	border-bottom-right-radius: 0rem;
+}
+
+.cover-right {
+	border-top-left-radius: 0rem;
+	border-bottom-left-radius: 0rem;
+	border-top-right-radius: 0.25rem;
+	border-bottom-right-radius: 0.25rem;
+}
+
+.text-emphasis {
+	color: rgb(224, 224, 224);
+}
+
+.modal-backdrop {
+	opacity:0.75 !important;
+}
+
+.navbar-collapse {
+  max-height: 350px;
+  overflow-y: auto;
+}
+
+.bg {
+    background-image: url("/assets/images/bg.png");
+    background-position: center;
+    background-repeat: repeat;
+    background-size: 128px;
+}
+
+.bg-goo {
+    background-image: url("/assets/images/background.gif");
+    background-position: center;
+    background-repeat: repeat-horizontal;
+    background-size: 1280px;
+}
+
+.bg-goo-fill {
+    background-image: url("/assets/images/backgroundfill.png");
+    background-position: center;
+    background-repeat: repeat;
+    background-size: 1280px;
+}
+
+.card {
+	-webkit-box-shadow: 0px 0px 8px 0px rgba(0,0,0,0.2);
+	-moz-box-shadow: 0px 0px 8px 0px rgba(0,0,0,0.2);
+	box-shadow: 0px 0px 8px 0px rgba(0,0,0,0.2);
+}
+
+.btn {
+	text-shadow:0px 1px 4px rgba(0, 0, 0, 0.5);
+}
+
+@keyframes fadein {
+    from {
+        opacity:0;
+    }
+    to {
+        opacity:1;
+    }
+}
+@-moz-keyframes fadein { /* Firefox */
+    from {
+        opacity:0;
+    }
+    to {
+        opacity:1;
+    }
+}
+@-webkit-keyframes fadein { /* Safari and Chrome */
+    from {
+        opacity:0;
+    }
+    to {
+        opacity:1;
+    }
+}
+@-o-keyframes fadein { /* Opera */
+    from {
+        opacity:0;
+    }
+    to {
+        opacity: 1;
+    }
+}
+
+@keyframes anim-rotate {
+    0% {
+        transform: rotate(0);
+    }
+    100% {
+        transform: rotate(360deg);
+    }
+}
+.spinner {
+    display: inline-block;
+    line-height: 0;
+    animation: anim-rotate 2s infinite linear;
+}

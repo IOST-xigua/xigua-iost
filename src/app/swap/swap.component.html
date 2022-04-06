@@ -1,0 +1,176 @@
+<div style="position: absolute; left: 0; top: 0; width: 100%; height: 100%; overflow-y: auto">
+
+<div [ngClass]="{'xg-swap': !isMobile}">
+  <div class="xg-swap-container card" style="margin: 10px auto 0 auto;">
+    <div class="xg-swap-pannel card bg-primary">
+      <div class="row" style="margin-bottom: 14px;">
+        <div class="col col-4">
+          {{['从','From'][language]}}
+        </div>
+        <div class="col col-8 text-right">
+          {{['余额','Balance'][language]}}: {{fromBalance}}
+        </div>
+      </div>
+      <div class="row" style="margin-bottom: 2px;">
+        <div class="col">
+          <input class="form-control" type="text" placeholder="0.0" [disabled]="waiting"
+              (keydown)="checkAmount($event)" (keyup)="enterInAmount()"
+              (change)="enterInAmount()" [(ngModel)]="amountIn" [value]="amountIn">
+        </div>
+        <div class="col col-auto">
+          <button class="btn btn-sm btn-light" style="margin-right: 6px;" (click)="goMax()" [disabled]="waiting">
+            {{['最大','MAX'][language]}}
+          </button>
+          <button class="btn btn-sm btn-dark" (click)="showTokenSelection(0)" [disabled]="waiting">
+            <img src="/assets/tokens/{{fromTokenImage}}.png" width="20" *ngIf="fromTokenName != '---'">
+            {{fromTokenName}} ↓
+          </button>
+        </div>
+      </div>
+    </div>
+    <div class="xg-swap-reverse text-center">
+      <span (click)="!waiting && goReverse()">
+        ↑↓
+      </span>
+    </div>
+    <div class="xg-swap-pannel card bg-primary">
+      <div class="row" style="margin-bottom: 14px;">
+        <div class="col col-4">
+          {{['到','To'][language]}}
+        </div>
+        <div class="col col-8 text-right">
+          {{['余额','Balance'][language]}}: {{toBalance}}
+        </div>
+      </div>
+      <div class="row" style="margin-bottom: 2px;">
+        <div class="col">
+          <input class="form-control" type="text" placeholder="0.0" [disabled]="waiting"
+              (keydown)="checkAmount($event)" (keyup)="enterOutAmount()"
+              (change)="enterOutAmount()" [(ngModel)]="amountOut" [value]="amountOut">
+        </div>
+        <div class="col col-auto">
+          <button class="btn btn-sm btn-dark" (click)="showTokenSelection(1)">
+            <img src="/assets/tokens/{{toTokenImage}}.png" width="20" *ngIf="toTokenName != '---'">
+            {{toTokenName}} ↓
+          </button>
+        </div>
+      </div>
+    </div>
+    <div class="row" style="margin: 10px 0 0 0;" *ngIf="amountIn && amountOut && ratioValue">
+      <div class="col col-auto text-left">
+        {{["当前比例","Current rate"][language]}} (<a href="javascript: void(0)" (click)="!waiting && reverseRatio()">{{["反向","reverse"][language]}}</a>)
+      </div>
+      <div class="col text-right">
+        <span *ngIf="ratioDirection">
+          {{ "1 " + toTokenName + " = " + ratioValue + " " + fromTokenName }}
+        </span>
+        <span *ngIf="!ratioDirection">
+          {{ "1 " + fromTokenName + " = " + ratioValue + " " + toTokenName }}
+        </span>
+      </div>
+    </div>
+    <div class="row" style="margin: 10px 0px;">
+      <div class="col col-9">
+        {{["滑点","Slippage tolerance"][language]}} (<a href="javascript: void(0)" (click)="!waiting && showSlippage()">{{["更改","change"][language]}}</a>)
+      </div>
+      <div class="col text-right">
+        {{slippageValue / 10}}%
+      </div>
+    </div>
+    <div>
+      <button class="input-btn btn"
+          [ngClass]="{'btn-danger': !waiting, 'btn-light': waiting}"
+          style="width:100%;" type="button" [disabled]="willDisable || waiting" (click)="goSwap()">
+        {{ waiting ? ['兑换中...','Process...'][language] : buttonMessageArray[language]}}
+      </button>
+    </div>
+  </div>
+  <div class="card xg-swap-info" [ngClass]="{'active': willShowInfo}">
+    <div class="row" *ngIf="!infoMinOrMax">
+      <div class="col">
+        {{['最少收到','Minimum received'][language]}}
+      </div>
+      <div class="col text-right">
+        {{infoMinOrMaxAmount}} {{toTokenName}}
+      </div>
+    </div>
+    <div class="row" *ngIf="infoMinOrMax">
+      <div class="col">
+        {{['最多付出','Maximum sold'][language]}}
+      </div>
+      <div class="col text-right">
+        {{infoMinOrMaxAmount}} {{fromTokenName}}
+      </div>
+    </div>
+    <div class="row">
+      <div class="col">
+        {{['价格变化','Price Impact'][language]}}
+      </div>
+      <div class="col text-right" [ngClass]="{'text-success': infoPriceImpact < 1, 'text-danger': infoPriceImpact > 2}">
+        {{infoPriceImpact == 0 ? '<0.01' : infoPriceImpact}}%
+      </div>
+    </div>
+    <div class="row">
+      <div class="col">
+        {{['手续费用','Transaction Fee'][language]}}
+      </div>
+      <div class="col text-right">
+        {{infoFee}} {{fromTokenName}}
+      </div>
+    </div>
+    <div class="row">
+      <div class="col">
+        {{['交易路径','Route'][language]}}
+      </div>   
+      <div class="col text-right">
+        {{infoPath}}
+      </div>
+    </div>
+    <div class="row" *ngIf="fromPrice">
+      <div class="col">
+        {{fromTokenName}}{{['价格',' price'][language]}}
+      </div>
+      <div class="col text-right">
+        ${{fromPrice}}
+      </div>
+    </div>
+    <div class="row" *ngIf="toPrice">
+      <div class="col">
+        {{toTokenName}}{{['价格',' price'][language]}}
+      </div>
+      <div class="col text-right">
+        ${{toPrice}}
+      </div>
+    </div>
+  </div>
+</div>
+
+</div>
+
+<app-token-selection
+  #tokenSelection
+  style="height: 100%; width: 100%; z-index: 4; position: fixed; top: 0"
+  *ngIf="willShowTokenSelection"
+  [profile]=profile
+  (onSelect)="onTokenSelection($event)"
+  (onClose)="onCloseTokenSelection()">
+</app-token-selection>
+
+<app-slippage
+  #slippage
+  style="height: 100%; width: 100%; z-index: 4; position: fixed; top: 0"
+  *ngIf="willShowSlippage"
+  (onSelect)="onSlippage($event)"
+  (onClose)="onCloseSlippage()">
+</app-slippage>
+
+<app-alert-message
+  #alertMessage
+  [titleCN]="alertTitleCN"
+  [titleEN]="alertTitleEN"
+  [bodyCN]="alertBodyCN"
+  [bodyEN]="alertBodyEN"
+  style="height: 100%; width: 100%; z-index: 14; position: absolute; top: 0"
+  *ngIf="willShowAlertMessage"
+  (onClose)="closeAlert()">
+</app-alert-message>

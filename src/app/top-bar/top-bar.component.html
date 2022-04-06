@@ -1,0 +1,78 @@
+<nav class="navbar bg navbar-dark bg-primary" style="margin-top:-57px; padding:0px; position:fixed; transform:translateZ(0); -webkit-transform:translateZ(0); z-index:2; width:100%;">
+  <a class="navbar-brand d-none d-sm-flex" href="javascript:void(0)">
+    <img class="navbar-left" src="/assets/images/logo.png" style="height: 32px;">
+  </a>
+  <div class="navbar-collapse d-none d-sm-flex"
+      style="max-height:none;border-top: 1px solid rgba(0, 0, 0, 0.2); flex-basis: auto;">
+    <ul class="navbar-nav mr-auto" style="flex-direction: row;">
+      <ng-container>
+        <li class="nav-item" [ngClass]="{'active': tabId === 1}">
+          <a class="nav-link" href="javascript:void(0)" (click)="gotoTab(1)">{{['交易','Swap'][language]}}</a>
+        </li>
+        <li class="nav-item" [ngClass]="{'active': tabId === 2}">
+          <a class="nav-link" href="javascript:void(0)" (click)="gotoTab(2)">{{['做市','Pool'][language]}}</a>
+        </li>
+        <li class="nav-item" [ngClass]="{'active': tabId === 3}">
+          <a class="nav-link" href="javascript:void(0)" (click)="gotoTab(3)">{{['铸币','XUSD'][language]}}</a>
+        </li>
+        <li class="nav-item" [ngClass]="{'active': tabId === 4}">
+          <a class="nav-link" href="javascript:void(0)" (click)="gotoTab(4)">{{['理财','Vaults'][language]}}</a>
+        </li>
+        <li class="nav-item" [ngClass]="{'active': tabId === 5}">
+          <a class="nav-link" href="javascript:void(0)" (click)="gotoTab(5)">{{['数据','Data'][language]}}</a>
+        </li>
+        <li class="nav-item" [ngClass]="{'active': tabId === 6}">
+          <a class="nav-link" href="javascript:void(0)" (click)="gotoTab(6)">{{['XPLUS','XPLUS'][language]}}</a>
+        </li>
+      </ng-container>
+    </ul>
+    <ul class="navbar-nav" style="flex-direction: row;">
+      <li class="nav-item">
+        <a class="nav-link text-danger" style="cursor:pointer;" href="https://docs.qq.com/doc/DYWpXZHBFYW1SbldU" *ngIf="language==0">XPLUS 介绍</a>
+        <a class="nav-link text-danger" style="cursor:pointer;" href="https://docs.google.com/document/d/1zMq8ewT8D2mAGVqHK5e7POm2loHk6PMibgRzeSMx8CA" *ngIf="language==1">XPLUS introduce</a>
+      </li>
+      <li class="nav-item">
+        <a class="nav-link text-danger" style="cursor:pointer;" href="https://docs.qq.com/doc/DWXBQeVdXQVd4Z2JE" *ngIf="language==0">白皮书</a>
+        <a class="nav-link text-danger" style="cursor:pointer;" href="https://docs.google.com/document/d/15dO3xZA7iLhAx_boZTaKkmHUyCc8RFSiCfC2xIEslOI" *ngIf="language==1">Whitepaper</a>
+      </li>
+      <li class="nav-item">
+        <a class="nav-link text-warning" href="javascript:void(0)" style="cursor:pointer;" (click)="changeLanguageByClick(1)" *ngIf="language==0">English</a>
+        <a class="nav-link text-warning" href="javascript:void(0)" style="cursor:pointer;" (click)="changeLanguageByClick(0)" *ngIf="language==1">中文</a>
+      </li>
+      <a class="nav-link" href="javascript:void(0)" style="padding:10px;" (click)="showWechatBox()">
+        <img class="navbar-left" src="/assets/images/wechat.png" style="max-height: 32px;">
+      </a>
+      <a class="nav-link" target="_blank" href="https://discord.gg/a2bHqZv" style="padding:10px;"><img class="navbar-left" src="/assets/images/discord.png" style="max-height: 32px;"></a>
+    </ul>
+  </div>
+
+  <div class="navbar-collapse d-flex d-md-none" id="jh-mobile-menu"
+      style="max-height:none;border-top: 1px solid rgba(0, 0, 0, 0.2); display: flex; flex-basis: auto;">
+    <ul class="navbar-nav mr-auto jh-mobile-menu">
+      <ng-container>
+        <li class="nav-item" [ngClass]="{'active': tabId === 1}">
+          <a class="nav-link" href="javascript:void(0)" (click)="gotoTab(1)">{{['交易','Swap'][language]}}</a>
+        </li>
+        <li class="nav-item" [ngClass]="{'active': tabId === 2}">
+          <a class="nav-link" href="javascript:void(0)" (click)="gotoTab(2)">{{['做市','Pool'][language]}}</a>
+        </li>
+        <li class="nav-item" [ngClass]="{'active': tabId === 3}">
+          <a class="nav-link" href="javascript:void(0)" (click)="gotoTab(3)">{{['铸币','XUSD'][language]}}</a>
+        </li>
+        <li class="nav-item" [ngClass]="{'active': tabId === 4}">
+          <a class="nav-link" href="javascript:void(0)" (click)="gotoTab(4)">{{['理财','Vaults'][language]}}</a>
+        </li>
+        <li class="nav-item" [ngClass]="{'active': tabId === 5}">
+          <a class="nav-link" href="javascript:void(0)" (click)="gotoTab(5)">{{['数据','Data'][language]}}</a>
+        </li>
+        <li class="nav-item" [ngClass]="{'active': tabId === 6}">
+          <a class="nav-link" href="javascript:void(0)" (click)="gotoTab(6)">{{['XPLUS','XPLUS'][language]}}</a>
+        </li>
+        <li class="nav-item">
+          <a class="nav-link text-warning" href="javascript:void(0)" style="cursor:pointer;" (click)="changeLanguageByClick(1)" *ngIf="language==0">EN</a>
+          <a class="nav-link text-warning" href="javascript:void(0)" style="cursor:pointer;" (click)="changeLanguageByClick(0)" *ngIf="language==1">中</a>
+        </li>
+      </ng-container>
+    </ul>
+  </div>
+</nav>

@@ -1,0 +1,104 @@
+<div style="height: 100%; width: 100%; z-index: 3; position: absolute;">
+  <div style="height: 100%; width: 100%; z-index: 2; opacity: 0.7; background-color: black;"></div>
+
+  <div class="xg-remove-liquidity"
+     (mousemove)="onSliderMove($event)"
+     (mouseup)="onSliderMoveEnd($event)"
+     (mouseleave)="onSliderMoveEnd($event)"
+     (touchmove)="onSliderMove($event)"
+     (touchend)="onSliderMoveEnd($event)"
+     (touchcancel)="onSliderMoveEnd($event)">
+    <div class="card xg-remove-liquidity-outerbox">
+      <div>
+        <h5>{{['去除流动性','Remove liquidity'][language]}}</h5>
+      </div>
+      <div class="xg-remove-liquidity-pannel card bg-primary text-left">
+        <div>
+          <h1 style="font-size: 40px">{{sliderValue}}%</h1>
+        </div>
+        <div class="xg-remove-liquidity-slider" #slider>
+          <div class="xg-remove-liquidity-slider-handle" (touchstart)="onSliderMoveStart($event)" (mousedown)="onSliderMoveStart($event)" [ngStyle]="{'left.px': sliderX - 15}"></div>
+        </div>
+        <div>
+          <button class="btn btn-sm btn-light" (click)="setSliderValue(25)">25%</button>
+          <button class="btn btn-sm btn-light" (click)="setSliderValue(50)">50%</button>
+          <button class="btn btn-sm btn-light" (click)="setSliderValue(75)">75%</button>
+          <button class="btn btn-sm btn-light" (click)="setSliderValue(100)">Max</button>
+        </div>
+      </div>
+      <div class="xg-remove-liquidity-down text-center">
+        <span>
+          ↓
+        </span>
+      </div>
+      <div class="xg-remove-liquidity-pannel card bg-primary">
+        <div class="row">
+          <div class="col text-left">
+            {{removeAmount0}}
+          </div>
+          <div class="col col-auto text-right">
+            {{token0}}
+          </div>
+        </div>
+        <div class="row">
+          <div class="col text-left">
+            {{removeAmount1}}
+          </div>
+          <div class="col col-auto text-right">
+            {{token1}}
+          </div>
+        </div>
+      </div>
+      <div class="row" style="margin-top: 10px;">
+        <div class="col col-auto text-left">
+          {{["当前比例","Current rate"][language]}} (<a href="javascript: void(0)" (click)="!waiting && reverseRatio()">{{["反向","reverse"][language]}}</a>)
+        </div>
+        <div class="col text-right">
+          <span *ngIf="ratioDirection">
+            {{ "1 " + token0 + " = " + ratioValue + " " + token1 }}
+          </span>
+          <span *ngIf="!ratioDirection">
+            {{ "1 " + token1 + " = " + ratioValue + " " + token0 }}
+          </span>
+        </div>
+      </div>
+      <div class="row" style="margin-top: 10px; margin-down: 10px;">
+        <div class="col col-9 text-left">
+          {{["滑点","Slippage tolerance"][language]}} (<a href="javascript: void(0)" (click)="!waiting && showSlippage()">{{["更改","change"][language]}}</a>)
+        </div>
+        <div class="col text-right">
+          {{slippageValue / 10}}%
+        </div>
+      </div>
+      <div style="margin-top: 10px;">
+        <button class="input-btn btn"
+            [ngClass]="{'btn-danger': !waiting, 'btn-light': waiting}"
+            style="width:100%;" type="button" [disabled]="!sliderValue || waiting" (click)="submit()">
+          {{ waiting ? ['提交中...','Process...'][language] : ['去除','Remove'][language]}}
+        </button>
+      </div>
+      <div>
+        <button class="btn btn-dark" style="width:100%; margin-top: 10px;" (click)="cancel()">{{['取消','Cancel'][language]}}</button>
+      </div>
+    </div>
+  </div>
+</div>
+
+<app-slippage
+  #slippage
+  style="height: 100%; width: 100%; z-index: 4; position: fixed; top: 0"
+  *ngIf="willShowSlippage"
+  (onSelect)="onSlippage($event)"
+  (onClose)="onCloseSlippage()">
+</app-slippage>
+
+<app-alert-message
+  #alertMessage
+  [titleCN]="alertTitleCN"
+  [titleEN]="alertTitleEN"
+  [bodyCN]="alertBodyCN"
+  [bodyEN]="alertBodyEN"
+  style="height: 100%; width: 100%; z-index: 14; position: absolute; top: 0"
+  *ngIf="willShowAlertMessage"
+  (onClose)="closeAlert()">
+</app-alert-message>

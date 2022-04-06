@@ -1,0 +1,24 @@
+<div class="footer" style="-webkit-transform:translateZ(0); transform:translateZ(0);">
+  <div class="container-fluid bg-primary footer-content bg">
+    <div class="row footer-inner">
+      <div class="col text-center" style="padding:0px; margin-bottom:4px;">
+        <div class="text-center" style="display: -webkit-inline-box;">
+          <h5 style="margin-bottom:2px;">
+            {{ profile.account }}
+          </h5>
+
+          <!--<button class="btn btn-sm btn-secondary"
+              style="margin-left:8px; margin-top:-5px; margin-bottom:-3px;" (click)="openAssetManagement()">
+            {{['交易记录','Transactions'][language]}}
+          </button>
+        </div>-->
+      </div>
+    </div>
+  </div>
+</div>
+
+<app-asset-management #assetManagement
+  *ngIf="showAssetManagement"
+  [profile]="profile"
+  (onClose)="onCloseAssetManagement()">
+</app-asset-management>

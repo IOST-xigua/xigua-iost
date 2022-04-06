@@ -1,0 +1,22 @@
+<div style="height: 100%; width: 100%; z-index: 3; position: absolute;">
+  <div style="height: 100%; width: 100%; z-index: 2; opacity: 0.7; background-color: black;"></div>
+
+  <div class="xg-slippage">
+    <div class="card xg-slippage-outerbox">
+      <div>
+        <span class="xg-slippage-selection" [ngClass]="{'active': value === 1}" (click)="select(1)">0.1%</span>
+        <span class="xg-slippage-selection" [ngClass]="{'active': value === 5}" (click)="select(5)">0.5%</span>
+        <span class="xg-slippage-selection" [ngClass]="{'active': value === 10}" (click)="select(10)">1%</span>
+        <span class="xg-slippage-selection" [ngClass]="{'active': value === 50}" (click)="select(50)">5%</span>
+        <span class="xg-slippage-selection" [ngClass]="{'active': value === 100}" (click)="select(100)">10%</span>
+      </div>
+      <div *ngIf="value < 5">
+        <span>{{['滑点太低，可能导致交易失败','Your transaction may fail'][language]}}</span>
+      </div>
+      <div>
+        <button class="btn btn-sm btn-light" style="margin: 5px" (click)="confirm()">{{['确定','Confirm'][language]}}</button>
+        <button class="btn btn-sm btn-dark" style="margin: 5px" (click)="close()">{{['取消','Cancel'][language]}}</button>
+      </div>
+    </div>
+  </div>
+</div>

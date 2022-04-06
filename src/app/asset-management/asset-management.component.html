@@ -1,0 +1,38 @@
+<div style="height: 100%; width: 100%; left: 0; top: 0; z-index: 13; position: fixed;">
+  <div class="jh-asset-outerbox">
+    <div class="modal-content">
+      <div class="modal-header">
+        <h5 class="modal-title text-info">{{["资产管理","Asset Management"][language]}}</h5>
+        <button type="button" class="close" (click)="close()">
+          <span aria-hidden="true">×</span>
+        </button>
+      </div>
+      <div class="modal-body text-center">
+        <ng-container *ngIf="!waiting">
+          <h5 style="margin-bottom:2px;">{{['分红:','Div.'][language]}}
+            {{formatNumber(this.profile.dividend || 0)}}
+            <i class="icon-iost"></i>
+          </h5>
+          <button class="btn btn-sm btn-secondary"
+              style="margin: 10px;" (click)="withdraw()" [disabled]="!this.profile.dividend">
+            {{['提现到钱包','Cash out'][language]}}
+          </button>
+        </ng-container>
+
+        <div *ngIf="waiting"><img src="/assets/images/loading.gif" style="margin: 30px auto; display: block; width: 80px;"></div>
+      </div>
+    </div>
+  </div>
+  <div class="jh-asset-background"></div>
+</div>
+
+<app-alert-message
+  #alertMessage
+  [titleCN]="alertTitleCN"
+  [titleEN]="alertTitleEN"
+  [bodyCN]="alertBodyCN"
+  [bodyEN]="alertBodyEN"
+  style="height: 100%; width: 100%; z-index: 14; position: absolute; top: 0"
+  *ngIf="willShowAlertMessage"
+  (onClose)="closeAlert()">
+</app-alert-message>

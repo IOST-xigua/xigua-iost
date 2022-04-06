@@ -1,0 +1,69 @@
+.xg-remove-liquidity {
+  width: 100%;
+  position: absolute;
+  height: 100%;
+  top:0;
+  left: 0;
+}
+
+.xg-remove-liquidity-outerbox {
+  width: 380px;
+  max-width: 90%;
+  padding: 10px;
+  margin: 0;
+  position: absolute;
+  text-align: center;
+  top: 50%;
+  left: 50%;
+  -webkit-transform: translate(-50%, -50%);
+  transform: translate(-50%, -50%);
+  -webkit-touch-callout: none;
+  -webkit-user-select: none;
+  -khtml-user-select: none;
+  -moz-user-select: none;
+  -ms-user-select: none;
+  user-select: none;
+  user-drag: none;
+  -webkit-user-drag: none;
+}
+
+.xg-remove-liquidity-pannel {
+  border: none;
+  padding: 12px 30px;
+}
+
+.xg-remove-liquidity-pannel .btn {
+  margin: 10px 5px;
+}
+
+.xg-remove-liquidity-slider {
+  height: 2px;
+  background-color: #999999;
+  margin: 20px 15px;
+}
+
+.xg-remove-liquidity-slider-handle {
+  position: relative;
+  top: -15px;
+  width: 30px;
+  height: 30px;
+  border-radius: 15px;
+  background-color: #CCCCCC;
+  cursor: pointer;
+}
+
+.xg-add-liquidity-down {
+  margin: 4px;
+}
+
+.xg-add-liquidity-down span {
+  display: inline-block;
+  font-weight: 400;
+  text-align: center;
+  white-space: nowrap;
+  vertical-align: middle;
+  -webkit-user-select: none;
+  -moz-user-select: none;
+  -ms-user-select: none;
+  user-select: none;
+}

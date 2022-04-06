@@ -1,0 +1,121 @@
+<div style="height: 100%; width: 100%; z-index: 3; position: absolute;">
+  <div style="height: 100%; width: 100%; z-index: 2; opacity: 0.7; background-color: black;"></div>
+
+  <div class="xg-vault-manage">
+    <div class="card xg-vault-manage-outerbox">
+      <div>
+        <h5>{{['抵押资产','Stake More'][language]}}</h5>
+      </div>
+
+      <div class="xg-vault-manage-pannel card bg-primary">
+        <div class="row" style="margin-bottom: 14px;">
+          <div class="col col-4 text-left">
+            {{['Stake','Stake'][language]}}
+          </div>
+          <div class="col col-8 text-right">
+            {{['可用','Available'][language]}}: {{tokenBalance}} {{fullName}}
+          </div>
+        </div>
+        <div class="row" style="margin-bottom: 2px;">
+          <div class="col">
+            <input class="form-control" type="text" placeholder="0.0" [disabled]="waitingDeposit"
+                (keydown)="checkAmount($event)" (keyup)="enterAmount()"
+                (change)="enterAmount()" [(ngModel)]="amountDeposit" [value]="amountDeposit">
+          </div>
+          <div class="col col-auto">
+            <button class="btn btn-sm btn-light" style="margin-right: 6px;" (click)="goMax()" [disabled]="waitingDeposit">
+              {{['最大','MAX'][language]}}
+            </button>
+          </div>
+        </div>
+      </div>
+
+      <div style="margin-top: 10px;">
+        <button class="input-btn btn"
+            [ngClass]="{'btn-danger': !waitingDeposit, 'btn-light': waitingDeposit}"
+            style="width:100%;" type="button" [disabled]="!canDeposit || waitingDeposit" (click)="deposit()">
+          {{ waitingDeposit ? ['提交中...','Process...'][language] : ['抵押', 'Stake'][language]}}
+        </button>
+      </div>
+
+      <div style="margin-top: 10px;">
+        <h5>{{['当前资产','Current Asset'][language]}}</h5>
+      </div>
+
+      <div class="xg-vault-manage-pannel" style="padding: 2px 30px">
+        <div class="row" style="margin-bottom: 14px;">
+          <div class="col col-4 text-left">
+            {{['本金','Staked'][language]}}
+          </div>
+          <div class="col col-8 text-right">
+            {{poolAmount}} {{fullName}}
+          </div>
+        </div>
+        <div class="row" style="margin-bottom: 14px;" *ngIf="canUnlockAmount">
+          <div class="col col-4 text-left">
+            {{['可解锁本金','Can unstake'][language]}}
+          </div>
+          <div class="col col-8 text-right">
+            {{canUnlockAmount}} {{fullName}}
+          </div>
+        </div>
+        <div class="row" style="margin-bottom: 14px;" *ngIf="token.indexOf('xlp')==0">
+          <div class="col col-4 text-left">
+            {{['约等于','Approx.'][language]}}<br/>
+            {{['(有延迟)','(has delay)'][language]}}
+          </div>
+          <div class="col col-8 text-right" *ngIf="pair">
+            {{token0Balance || 0}} {{pair.token0}}<br/>+ {{token1Balance || 0}} {{pair.token1}}
+          </div>
+        </div>
+        <div class="row" style="margin-bottom: 14px;">
+          <div class="col col-4 text-left">
+            {{['盈利','Rewards'][language]}}
+          </div>
+          <div class="col col-8 text-right">
+            {{pendingAmount}} xplus
+          </div>
+        </div>
+        <div class="row" style="margin-bottom: 14px;" *ngIf="extra">
+          <div class="col col-4 text-left">
+            {{['额外盈利','Extra Rewards'][language]}}
+          </div>
+          <div class="col col-8 text-right">
+            <span>{{extraPendingAmount}} {{extra}}</span>
+          </div>
+        </div>
+      </div>
+
+      <div class="row" style="margin: 10px -5px;">
+        <div class="col col-6" style="padding: 0 5px;">
+          <button class="input-btn btn"
+              [ngClass]="{'btn-warning': !waitingWithdraw, 'btn-light': waitingWithdraw}"
+              style="width:100%;" type="button" [disabled]="!canWithdraw || waitingWithdraw" (click)="withdraw()">
+            {{ waitingWithdraw ? ['提交中...','Process...'][language] : ['提取全部','Unstake'][language]}}
+          </button>
+        </div>
+        <div class="col col-6" style="padding: 0 5px;">
+          <button class="input-btn btn"
+              [ngClass]="{'btn-success': !waitingClaim, 'btn-light': waitingClaim}"
+              style="width:100%;" type="button" [disabled]="!canClaim || waitingClaim || (isInList(token) && !isBonusUnlocked())" (click)="claim()">
+            {{ waitingClaim ? ['提交中...','Process...'][language] : ['提取盈利','Claim'][language]}}
+          </button>
+        </div>
+      </div>
+      <div>
+        <button class="btn btn-dark" style="width:100%; margin-top: 10px;" (click)="cancel()">{{['关闭','Close'][language]}}</button>
+      </div>
+    </div>
+  </div>
+</div>
+
+<app-alert-message
+  #alertMessage
+  [titleCN]="alertTitleCN"
+  [titleEN]="alertTitleEN"
+  [bodyCN]="alertBodyCN"
+  [bodyEN]="alertBodyEN"
+  style="height: 100%; width: 100%; z-index: 14; position: absolute; top: 0"
+  *ngIf="willShowAlertMessage"
+  (onClose)="closeAlert()">
+</app-alert-message>

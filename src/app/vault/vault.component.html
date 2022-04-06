@@ -1,0 +1,86 @@
+<div class="xg-vault">
+  <div class="jumbotron text-center xg-vault-jumbotron xg-vault-bound">
+    <h6 class="text-center" style="margin-top:8px;">
+      {{['抵押相应的资产可以参与挖矿XPLUS。流动性挖矿是一种非常高风险的投资，参与前，请确保您完全理解相关的风险。',
+         'Stake your tokens to yield XPLUS. Please participate only if you understand the risks.'][language]}}
+    </h6>
+
+    <h6 class="text-center text-info" style="margin-top:8px;" *ngIf="countingDownSecs">
+      {{['距离挖矿开始还有', 'Mining of XG starts in '][language]}} {{countingDownSecs}} {{['秒','seconds'][language]}}
+    </h6>
+  </div>
+
+  <div class="row xg-vault-bar xg-vault-bound" style="margin-bottom: 20px">
+    <div class="col col-auto text-left">
+      {{['当前矿池', 'Current vaults'][language]}}
+    </div>
+    <div class="col text-right">
+      <button class="btn btn-sm btn-light" style="margin-right:12px" (click)="showFarmVote()">{{['投票1','Vote1'][language]}}</button>
+      <button class="btn btn-sm btn-light" style="margin-right:12px" (click)="showFarmVote2()">{{['投票2','Vote2'][language]}}</button>
+    </div>
+  </div>
+
+  <div *ngIf="waiting">
+    <img src="/assets/images/loading.gif" style="margin: 100px auto; display: block; width: 80px;">
+  </div>
+
+  <div *ngIf="!waiting">
+    <div class="card xg-vault-card xg-vault-bound" style="margin-bottom: 10px" *ngFor="let info of infoArray; index as i">
+      <div class="row">
+        <div class="col text-left">
+          {{info.fullName}} <span *ngIf="info.lockDays">({{['锁仓','freeze '][language]}}{{info.lockDays}}{{['天',' days'][language]}})</span> × {{info.alloc}} <span *ngIf="info.canVote" class="text-info">[{{['投票权','vote'][language]}}]</span>
+        </div>
+        <div class="col col-auto text-right">
+          <button class="btn btn-sm btn-dark" (click)="showVault(info)">{{['管理', 'Manage'][language]}}</button>
+        </div>
+      </div>
+      <div class="xg-pool-line">
+        <div class="row">
+          <div class="col text-left">
+            {{['总抵押','Total staked'][language]}}
+          </div>
+          <div class="col text-right">
+            ${{profile.xusdPrice ? (info.totalInXUSD * profile.xusdPrice).toFixed(2) : info.totalInXUSD}}
+          </div>
+        </div>
+        <div class="row">
+          <div class="col text-left">
+            {{['年化收益(估算)','Estimated APY'][language]}}
+          </div>
+          <div class="col text-right">
+            {{+(info.apy * 100).toFixed(2)}}%
+          </div>
+        </div>
+      </div>
+    </div>
+  </div>
+</div>
+
+<app-vault-manage
+  #vaultManager
+  style="height: 100%; width: 100%; z-index: 4; position: fixed; top: 0"
+  *ngIf="willShowVaultManage"
+  [profile]=profile
+  [fullName]=vaultManageFullName
+  [token]=vaultManageToken
+  [precision]=vaultManagePrecision
+  [extra]=vaultManageExtra
+  [extraPrecision]=vaultManageExtraPrecision
+  [lockDays]=vaultManageLockDays
+  (onRefresh)="onRefreshVaultManage()"
+  (onClose)="onCloseVaultManage()">
+</app-vault-manage>
+
+<app-farm-vote
+  #farmVote
+  style="height: 100%; width: 100%; z-index: 4; position: fixed; top: 0"
+  *ngIf="willShowFarmVote"
+  (onClose)="onCloseFarmVote()">
+</app-farm-vote>
+
+<app-farm-vote2
+  #farmVote2
+  style="height: 100%; width: 100%; z-index: 4; position: fixed; top: 0"
+  *ngIf="willShowFarmVote2"
+  (onClose)="onCloseFarmVote2()">
+</app-farm-vote2>

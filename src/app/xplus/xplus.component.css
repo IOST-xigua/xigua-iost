@@ -1,0 +1,18 @@
+.xg-xplus {
+  text-align: center;
+  font-size: 50px;
+  overflow-y: auto;
+  overflow-x:hidden;
+  width: 100%;
+  padding: 15px 16px;
+  height: 100%;
+  margin-bottom:0px;
+  margin-top: 80px;
+  padding-bottom:0px;
+  position: absolute;
+  animation: fadein 1s;
+  -moz-animation: fadein 1s; /* Firefox */
+  -webkit-animation: fadein 1s; /* Safari and Chrome */
+  -o-animation: fadein 1s; /* Opera */
+
+}

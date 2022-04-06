@@ -1,0 +1,12 @@
+.jh-profile {
+  width: 750px;
+  margin-left:60px;
+  margin-top: 60px;
+  border-radius: 25px;
+  padding: 20px;
+  overflow: auto; 
+}
+
+.jh-profile span {
+  margin-left: 100px; 
+}

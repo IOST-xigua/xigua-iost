@@ -1,0 +1,56 @@
+<div style="height: 100%; width: 100%; z-index: 3; position: absolute;">
+  <div style="height: 100%; width: 100%; z-index: 2; opacity: 0.7; background-color: black;"></div>
+
+  <div class="xg-farm-vote2">
+    <div class="card xg-farm-vote2-outerbox">
+      <div>
+        <h5>{{['对提案投票','Vote for proposals'][language]}}</h5>
+      </div>
+      <div>
+        <p>{{['投票将持续24 小时','Vote lasts for 24 hours'][language]}}
+        </p>
+        <p>{{['总票数','total votes'][language]}}: {{totalVote}}
+        </p>
+      </div>
+      <div style="width: 100%; height: 260px; overflow-y: auto" *ngIf="!waiting">
+
+        <div *ngFor="let proposalId of proposalIdArray">
+          <div style="margin-top: 10px;white-space: pre-wrap;">
+            <h5>{{["提案 #", "Proposal #"][language]}}{{proposalId}}</h5>
+            {{ proposals[proposalId][language] }}
+          </div>
+          <div class="text-info" *ngIf="actionMap[proposalId] != 0">
+            {{['支持','approved'][language]}}: {{statMap[proposalId].approval}}<br/>
+            {{['反对','disapproved'][language]}}: {{statMap[proposalId].disapproval}}
+          </div>
+          <div class="text-info" *ngIf="actionMap[proposalId] != 0">
+            {{['你选择了','You clicked '][language]}}{{ actionMap[proposalId] == 1 ? ['支持','approve'][language] : ['反对','disapprove'][language] }}<br/>
+            <button class="btn btn-sm btn-warning" (click)="refresh(proposalId)">{{['刷新(需要很多gas, 没事别点)','Refresh (need a lot gas, don\'t do)'][language]}}</button>
+          </div>
+          <div *ngIf="actionMap[proposalId] == 0">
+            <button class="btn btn-sm" (click)="approve(proposalId)">{{["支持","approve"][language]}}</button>
+            <button class="btn btn-sm" (click)="disapprove(proposalId)">{{["反对","disapprove"][language]}}</button>
+          </div>
+        </div>
+
+      </div>
+      <div style="width: 100%; height: 260px;" *ngIf="waiting">
+        {{['加载中...','loading...'][language]}}
+      </div>
+      <div>
+        <button class="btn btn-dark" style="width:100%; margin-top: 10px;" (click)="close()">{{['关闭','Close'][language]}}</button>
+      </div>
+    </div>
+  </div>
+</div>
+
+<app-alert-message
+  #alertMessage
+  [titleCN]="alertTitleCN"
+  [titleEN]="alertTitleEN"
+  [bodyCN]="alertBodyCN"
+  [bodyEN]="alertBodyEN"
+  style="height: 100%; width: 100%; z-index: 14; position: absolute; top: 0"
+  *ngIf="willShowAlertMessage"
+  (onClose)="closeAlert()">
+</app-alert-message>

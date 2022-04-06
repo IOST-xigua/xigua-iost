@@ -1,0 +1,54 @@
+.xg-add-liquidity {
+  width: 100%;
+  position: absolute;
+  height: 100%;
+  top:0;
+  left: 0;
+}
+
+.xg-add-liquidity-outerbox {
+  width: 380px;
+  max-width: 90%;
+  padding: 10px;
+  margin: 0;
+  position: absolute;
+  text-align: center;
+  top: 50%;
+  left: 50%;
+  -webkit-transform: translate(-50%, -50%);
+  transform: translate(-50%, -50%);
+}
+
+.xg-add-liquidity-pannel {
+  border: none;
+  padding: 12px 30px;
+}
+
+.xg-add-liquidity-pannel .row .col {
+  padding-right: 4px;
+  padding-left: 4px;
+}
+
+.xg-add-liquidity-pannel .row .col input {
+  height: auto;
+  background-color: #3A3F44;
+  border-color: #3A3F44;
+  color: white;
+  padding: 0;
+}
+
+.xg-add-liquidity-plus {
+  margin: 4px;
+}
+
+.xg-add-liquidity-plus span {
+  display: inline-block;
+  font-weight: 400;
+  text-align: center;
+  white-space: nowrap;
+  vertical-align: middle;
+  -webkit-user-select: none;
+  -moz-user-select: none;
+  -ms-user-select: none;
+  user-select: none;
+}

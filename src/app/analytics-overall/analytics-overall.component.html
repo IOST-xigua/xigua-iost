@@ -1,0 +1,84 @@
+<ng-container>
+  <div class="jumbotron text-center xg-analytics-jumbotron xg-analytics-bound">
+    <h6 class="text-center" style="margin-top:8px;">
+      {{['xg流通量',
+         'xg in circulation'][language]}}: {{xgSupply}}
+    </h6>
+
+    <h6 class="text-center" style="margin-top:8px;">
+      {{['xg价格',
+         'xg price'][language]}}: ${{xgPrice}}
+    </h6>
+  </div>
+
+  <div class="jumbotron text-center xg-analytics-jumbotron xg-analytics-bound">
+    <h6 class="text-center" style="margin-top:8px;">
+      {{['xusd流通量',
+         'xusd in circulation'][language]}}: {{xusdSupply}}
+    </h6>
+
+    <h6 class="text-center" style="margin-top:8px;">
+      {{['xusd价格',
+         'xusd price'][language]}}: ${{xusdPrice}}
+    </h6>
+  </div>
+
+  <div class="jumbotron text-center xg-analytics-jumbotron xg-analytics-bound">
+    <h6 class="text-center" style="margin-top:8px;">
+      {{['做市中iost',
+         'iost in pool'][language]}}: {{poolIOST}} iost
+    </h6>
+    <h6 class="text-center" style="margin-top:8px;">
+      {{['做市中vost',
+         'vost in pool'][language]}}: {{poolVOST}} vost
+    </h6>
+    <h6 class="text-center" style="margin-top:8px;">
+      {{['做市中xusd',
+         'xusd in pool'][language]}}: {{poolXUSD}} xusd
+    </h6>
+    <h6 class="text-center" style="margin-top:8px;">
+      {{['做市中xg',
+         'xg in pool'][language]}}: {{poolXG}} xg
+    </h6>
+
+    <h6 class="text-center text-info" style="margin-top:8px;">
+      {{['历史销毁xg',
+         'xg burned'][language]}}: 44693.256890 xg
+    </h6>
+
+<!--    <h6 *ngIf="waiting">{{['请等待','Please wait...'][language]}}</h6>
+    <div *ngIf="!waiting && waitBurning">
+      <button class="btn btn-sm" disabled>{{['','Come back in '][language]}}{{ waitBurning }} {{['秒后再点','seconds'][language]}}</button>
+    </div>
+    <div *ngIf="!waiting && !waitBurning && costBurning">
+      <button class="btn btn-sm" (click)="maybeBurn()">{{['缴纳','Pay '][language]}}{{costBurning}} iost, {{['赢取XG', 'to win xg'][language]}}</button>
+      <h6 class="text-info">{{['您有2%概率，赢取xg总销毁量的2%','with 2% chance, you can win 2% of the burned xg'][language]}}</h6>
+    </div>
+-->
+  </div>
+
+  <div class="jumbotron text-center xg-analytics-jumbotron xg-analytics-bound">
+    <h6 class="text-center" style="margin-top:8px;">
+      {{['稳定币小金库',
+         'stabilization fund'][language]}}: {{stabFund}} iost
+    </h6>
+  </div>
+
+  <div class="jumbotron text-center xg-analytics-jumbotron xg-analytics-bound">
+    <h6 class="text-center" style="margin-top:8px;">
+      {{['总锁仓(仅iost)',
+         'TVL (iost only)'][language]}}: {{iostLocked}} iost
+    </h6>
+  </div>
+</ng-container>
+
+<app-alert-message
+  #alertMessage
+  [titleCN]="alertTitleCN"
+  [titleEN]="alertTitleEN"
+  [bodyCN]="alertBodyCN"
+  [bodyEN]="alertBodyEN"
+  style="height: 100%; width: 100%; z-index: 14; position: absolute; top: 0; left: 0;"
+  *ngIf="willShowAlertMessage"
+  (onClose)="closeAlert()">
+</app-alert-message>

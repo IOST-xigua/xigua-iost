@@ -1,0 +1,38 @@
+<div class="container-fluid bg" style="height:100%; min-height:100%; padding:0px;">
+  <app-top-bar #topBar
+      (onChangeLanguage)="changeLanguageByEvent($event)"
+      (onGotoTab)="gotoTab($event)"
+      (onShowWechatBox)="showWechatBox()">
+  </app-top-bar>
+  <ng-container>
+    <div class="row" style="padding:0px; margin:0px; margin-top:57px; margin-bottom:0px; height:100%; width:100%;" *ngIf="!waiting">
+      <div class="col" style="margin-bottom: 110px; margin-top: 0px; padding: 0px; overflow-y: auto;">
+        <app-right-side #rightSide
+            [tabId]=tabId
+            [profile]=profile>
+        </app-right-side>
+      </div>
+    </div>
+    <div class="row" style="padding:0px; margin:0px; margin-top:57px; margin-bottom:0px; height:100%; width:100%; display: flow-root;" *ngIf="waiting">
+      <div class="col" style="margin-bottom:0px; padding:0px; margin-bottom:110px;">
+        <img src="/assets/images/loading.gif" style="margin: 200px auto; display: block; width: 80px;">
+      </div>
+    </div>
+    <app-bottom-bar #bottomBar
+        [profile]=profile>
+    </app-bottom-bar>
+  </ng-container>
+</div>
+
+<app-wechat-box
+  #wechatBox
+  style="height: 100%; width: 100%; z-index: 101; position: absolute; top: 0"
+  *ngIf="willShowWechatBox"
+  (onClose)="closeWechatBox()">
+</app-wechat-box>
+
+<app-login-box
+  #loginBox
+  style="height: 100%; width: 100%; z-index: 101; position: absolute; top: 0"
+  *ngIf="!waiting && !profile.walletReady">
+</app-login-box>

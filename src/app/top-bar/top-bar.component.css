@@ -1,0 +1,17 @@
+.jh-mobile-menu {
+  flex-direction: row;
+  flex-basis: 100%;
+  display: table;
+  width: 100%;
+}
+
+.jh-mobile-menu li {
+  display: table-cell;
+  width: 17.5%;
+}
+
+.jh-mobile-menu li a {
+  text-align: center;
+  padding-left: inherit;
+  padding-right: inherit;
+}

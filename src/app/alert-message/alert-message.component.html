@@ -1,0 +1,16 @@
+<div style="height: 100%; width: 100%; z-index: 13; position: absolute;">
+  <div class="jh-dual-rules-outerbox">
+    <div class="modal-content">
+      <div class="modal-header">
+        <h5 class="modal-title text-info">{{[titleCN,titleEN][language]}}</h5>
+        <button type="button" class="close" (click)="close()">
+          <span aria-hidden="true">×</span>
+        </button>
+      </div>
+      <div class="modal-body text-left" style="max-height: 500px; overflow-y: auto;">
+        <p style="white-space: pre-line;">{{[bodyCN,bodyEN][language]}}</p>
+      </div>
+    </div>
+  </div>
+  <div class="jh-dual-rules-background" (click)="close()"></div>
+</div>

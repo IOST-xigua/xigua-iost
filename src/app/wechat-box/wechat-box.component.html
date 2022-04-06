@@ -1,0 +1,16 @@
+<div style="height: 100%; width: 100%; z-index: 13; position: absolute;">
+  <div class="jh-wechat-box-outerbox">
+    <div class="modal-content">
+      <div class="modal-header">
+        <h5 class="modal-title text-info">{{["官方微信","Official Wechat Account"][language]}}</h5>
+        <button type="button" class="close" (click)="close()">
+          <span aria-hidden="true">×</span>
+        </button>
+      </div>
+      <div class="modal-body text-left">
+        <img src="/assets/images/xplus.jpeg">
+      </div>
+    </div>
+  </div>
+  <div class="jh-wechat-box-background" (click)="close()"></div>
+</div>

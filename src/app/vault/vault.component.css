@@ -1,0 +1,42 @@
+.xg-vault {
+  text-align: center;
+  overflow-y: auto;
+  overflow-x:hidden;
+  width: 100%;
+  padding: 15px 16px;
+  height: 100%;
+  margin-bottom:0px;
+  padding-bottom:0px;
+  position: absolute;
+  animation: fadein 1s;
+  -moz-animation: fadein 1s; /* Firefox */
+  -webkit-animation: fadein 1s; /* Safari and Chrome */
+  -o-animation: fadein 1s; /* Opera */
+}
+
+.xg-vault .xg-vault-bound {
+  max-width: 400px;
+  margin-left: auto;
+  margin-right: auto;
+}
+
+.xg-vault .xg-vault-jumbotron {
+  max-width: 400px;
+  margin: 20px auto;
+  padding: 8px;
+  overflow-x: hidden;
+  overflow-y: auto;
+}
+
+.xg-vault-bar .col {
+  padding: 0;
+}
+
+.xg-vault-card {
+  padding: 10px;
+}
+
+.xg-vault-card .row .col {
+  margin: 6px;
+}
+

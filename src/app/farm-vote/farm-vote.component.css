@@ -1,0 +1,20 @@
+.xg-farm-vote {
+  width: 100%;
+  position: absolute;
+  height: 100%;
+  top:0;
+  left: 0;
+}
+
+.xg-farm-vote-outerbox {
+  width: 380px;
+  max-width: 90%;
+  padding: 10px;
+  margin: 0;
+  position: absolute;
+  text-align: center;
+  top: 50%;
+  left: 50%;
+  -webkit-transform: translate(-50%, -50%);
+  transform: translate(-50%, -50%);
+}

@@ -1,0 +1,43 @@
+.xg-slippage {
+  width: calc(100% - 50px);
+  margin-left: 25px;
+  position: absolute;
+  height: 100%;
+  top:0;
+  left: 0;
+}
+
+.xg-slippage-outerbox {
+  min-width: 380px;
+  padding: 10px;
+  margin: 0;
+  position: absolute;
+  text-align: center;
+  top: 50%;
+  left: 50%;
+  -webkit-transform: translate(-50%, -50%);
+  transform: translate(-50%, -50%);
+}
+
+.xg-slippage-selection {
+  border: 1px solid #aaa;
+  border-radius: 3px;
+  padding: 10px;
+  margin: 5px;
+  display: inline-block;
+  -webkit-touch-callout: none;
+  -webkit-user-select: none;
+  -khtml-user-select: none;
+  -moz-user-select: none;
+  -ms-user-select: none;
+  user-select: none;
+  user-drag: none;
+  -webkit-user-drag: none;
+  cursor: pointer;
+}
+
+.xg-slippage-selection.active {
+  border: 1px solid #d23a35;
+  color: #ddd;
+  background-color: #d23a35;
+}

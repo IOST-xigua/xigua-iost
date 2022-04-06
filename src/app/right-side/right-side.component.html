@@ -1,0 +1,24 @@
+<app-swap #swap
+  *ngIf="tabId===1"
+  [profile]="profile">
+</app-swap>
+<app-pool #pool
+  *ngIf="tabId===2"
+  [profile]="profile">
+</app-pool>
+<app-bank #bank
+  *ngIf="tabId===3"
+  [profile]="profile">
+</app-bank>
+<app-vault #vault
+  *ngIf="tabId===4"
+  [profile]="profile">
+</app-vault>
+<app-analytics #analytics
+  *ngIf="tabId===5"
+  [profile]="profile">
+</app-analytics>
+<app-xplus #xplus
+  *ngIf="tabId===6"
+  [profile]="profile">
+</app-xplus>

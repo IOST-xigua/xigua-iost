@@ -1,0 +1,118 @@
+<div style="height: 100%; width: 100%; z-index: 3; position: absolute;">
+  <div style="height: 100%; width: 100%; z-index: 2; opacity: 0.7; background-color: black;"></div>
+
+  <div class="xg-create-pair">
+    <div class="card xg-create-pair-outerbox">
+      <div>
+        <h5>{{['添加新的交易对','Create a new pair'][language]}}</h5>
+      </div>
+
+      <div class="xg-create-pair-pannel card bg-primary">
+        <div class="row" style="margin-bottom: 14px;">
+          <div class="col col-4">
+            {{['币种A','Token A'][language]}}
+          </div>
+          <div class="col col-8 text-right">
+            {{['可用','Available'][language]}}: {{fromBalance}}
+          </div>
+        </div>
+        <div class="row" style="margin-bottom: 2px;">
+          <div class="col">
+            <input class="form-control" type="text" placeholder="0.0" [disabled]="waiting"
+                (keydown)="checkAmount($event)" (keyup)="enterFromAmount()"
+                (change)="enterFromAmount()" [(ngModel)]="amountIn" [value]="amountIn">
+          </div>
+          <div class="col col-auto">
+            <button class="btn btn-sm btn-light" style="margin-right: 6px;" (click)="goMaxFrom()" [disabled]="waiting">
+              {{['最大','MAX'][language]}}
+            </button>
+            <button class="btn btn-sm btn-dark" (click)="showTokenSelection(0)" [disabled]="waiting">
+              <img src="/assets/tokens/{{fromTokenImage}}.png" width="20" *ngIf="fromTokenName != '---'">
+              {{fromTokenName}} ↓
+            </button>
+          </div>
+        </div>
+      </div>
+      <div class="xg-create-pair-plus text-center">
+        <span>
+          +
+        </span>
+      </div>
+      <div class="xg-create-pair-pannel card bg-primary">
+        <div class="row" style="margin-bottom: 14px;">
+          <div class="col col-4">
+            {{['币种B','Token B'][language]}}
+          </div>
+          <div class="col col-8 text-right">
+            {{['可用','Available'][language]}}: {{toBalance}}
+          </div>
+        </div>
+        <div class="row" style="margin-bottom: 2px;">
+          <div class="col">
+            <input class="form-control" type="text" placeholder="0.0" [disabled]="waiting"
+                (keydown)="checkAmount($event)" (keyup)="enterToAmount()"
+                (change)="enterToAmount()" [(ngModel)]="amountOut" [value]="amountOut">
+          </div>
+          <div class="col col-auto">
+            <button class="btn btn-sm btn-light" style="margin-right: 6px;" (click)="goMaxTo()" [disabled]="waiting">
+              {{['最大','MAX'][language]}}
+            </button>
+            <button class="btn btn-sm btn-dark" (click)="showTokenSelection(1)">
+              <img src="/assets/tokens/{{toTokenImage}}.png" width="20" *ngIf="toTokenName != '---'">
+              {{toTokenName}} ↓
+            </button>
+          </div>
+        </div>
+      </div>
+      <div class="xg-create-pair-plus text-center">
+        <span>
+          +
+        </span>
+      </div>
+
+      <div class="xg-create-pair-pannel card bg-primary">
+        <span>{{['上币费: 200 xg','Listing fee: 200 xg'][language]}}</span>
+      </div>
+
+      <div class="row" style="margin-top: 10px;" *ngIf="amountIn && amountOut && ratioValue">
+        <div class="col col-auto text-left">
+          {{["初始定价","Initial price"][language]}} (<a href="javascript: void(0)" (click)="!waiting && reverseRatio()">{{["反向","reverse"][language]}}</a>)
+        </div>
+        <div class="col text-right">
+          {{ ratioDirection ? "1 " + toTokenName + " = " + ratioValue + " " + fromTokenName : "1 " + fromTokenName + " = " + ratioValue + " " + toTokenName }}
+        </div>
+      </div>
+
+      <div style="margin-top: 10px;">
+        <button class="input-btn btn"
+            [ngClass]="{'btn-danger': !waiting, 'btn-light': waiting}"
+            style="width:100%;" type="button" [disabled]="willDisable || waiting" (click)="submit()">
+          {{ waiting ? ['提交中...','Process...'][language] : buttonMessageArray[language]}}
+        </button>
+      </div>
+      <div>
+        <button class="btn btn-dark" style="width:100%; margin-top: 10px;" (click)="cancel()">{{['取消','Cancel'][language]}}</button>
+      </div>
+    </div>
+  </div>
+</div>
+
+<app-token-selection
+  #tokenSelection
+  style="height: 100%; width: 100%; z-index: 4; position: fixed; top: 0"
+  *ngIf="willShowTokenSelection"
+  [profile]=profile
+  (onSelect)="onTokenSelection($event)"
+  (onClose)="onCloseTokenSelection()">
+</app-token-selection>
+
+<app-alert-message
+  #alertMessage
+  [titleCN]="alertTitleCN"
+  [titleEN]="alertTitleEN"
+  [bodyCN]="alertBodyCN"
+  [bodyEN]="alertBodyEN"
+  style="height: 100%; width: 100%; z-index: 14; position: absolute; top: 0"
+  *ngIf="willShowAlertMessage"
+  (onClose)="closeAlert()">
+</app-alert-message>

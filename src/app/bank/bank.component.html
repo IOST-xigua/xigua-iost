@@ -1,0 +1,220 @@
+<div style="position: absolute; left: 0; top: 0; width: 100%; height: 100%; overflow-y: auto">
+
+<div class="xg-bank">
+  <div class="xg-bank-position">
+    <div class="xg-bank-tabs">
+      <span class="xg-bank-one-tab" [ngClass]="{'active': tabId === 0}" (click)="gotoTab(0)">
+        {{['抵押','Lock'][language]}}
+      </span>
+      <span class="xg-bank-one-tab" [ngClass]="{'active': tabId === 1}" (click)="gotoTab(1)">
+        {{['解锁','Unlock'][language]}}
+      </span>
+      <span class="xg-bank-one-tab" [ngClass]="{'active': tabId === 2}" (click)="gotoTab(2)">
+        {{['借出','Borrow'][language]}}
+      </span>
+      <span class="xg-bank-one-tab" [ngClass]="{'active': tabId === 3}" (click)="gotoTab(3)">
+        {{['归还','Return'][language]}}
+      </span>
+    </div>
+
+    <div class="xg-bank-container card">
+      <ng-container *ngIf="tabId===0">
+      <div class="xg-bank-pannel card bg-primary">
+        <div class="row" style="margin-bottom: 14px;">
+          <div class="col col-4">
+            {{['抵押','Stake'][language]}}
+          </div>
+          <div class="col col-8 text-right">
+            {{['可用','Balance'][language]}}: {{iostBalance}} iost
+          </div>
+        </div>
+        <div class="row" style="margin-bottom: 2px;">
+          <div class="col">
+            <input class="form-control" type="text" placeholder="0.0"
+                (keydown)="checkAmount($event)" [(ngModel)]="amountLock" [value]="amountLock">
+          </div>
+          <div class="col col-auto">
+            <button class="btn btn-sm btn-light" style="margin-right: 6px;" (click)="goMaxLock()">
+              {{['最大','MAX'][language]}}
+            </button>
+            iost
+          </div>
+        </div>
+      </div>
+      <div>
+        <button class="input-btn btn btn-success" style="width:100%; margin-top: 20px;" type="button"
+            [disabled]="waiting" (click)="lock()">
+          {{waiting ? ['抵押中...','Processing...'][language] : ['抵押IOST','Stake IOST'][language]}}
+        </button>
+      </div>
+      </ng-container>
+
+      <ng-container *ngIf="tabId===1">
+      <div class="xg-bank-pannel card bg-primary">
+        <div class="row" style="margin-bottom: 14px;">
+          <div class="col col-4">
+            {{['解锁','Unstake'][language]}}
+          </div>
+          <div class="col col-8 text-right">
+            {{['最多解锁~','Can Unstake ~'][language]}}: {{info.canUnlock}} iost
+          </div>
+        </div>
+        <div class="row" style="margin-bottom: 2px;">
+          <div class="col">
+            <input class="form-control" type="text" placeholder="0.0"
+                (keydown)="checkAmount($event)" [(ngModel)]="amountUnlock" [value]="amountUnlock">
+          </div>
+          <div class="col col-auto">
+            <button class="btn btn-sm btn-light" style="margin-right: 6px;" (click)="goMaxUnlock()">
+              {{['最大','MAX'][language]}}
+            </button>
+            iost
+          </div>
+        </div>
+      </div>
+      <div style="text-align: center;">
+        <button class="input-btn btn btn-dark" style="width:calc(33% - 5px); margin: 20px 5px 0 auto;" type="button"
+            [disabled]="waiting" (click)="unlockWithDelay()">
+          {{waiting ? ['解锁中...','Processing...'][language] : ['3天解锁','3 Days'][language]}}
+        </button>
+
+        <button class="input-btn btn btn-warning" style="width:calc(33% - 5px); margin: 20px 5px 0 5px;" type="button"
+            [disabled]="waiting" (click)="unlockImmediately()">
+          {{waiting ? ['解锁中...','Processing...'][language] : ['付费解锁','With fee'][language]}}
+        </button>
+
+        <button class="input-btn btn btn-info" style="width:calc(33% - 5px); margin: 20px auto 0 auto;" type="button"
+            [disabled]="waiting" (click)="unlockWithVOST()">
+          {{waiting ? ['解锁中...','Processing...'][language] : ['VOST解锁','With vost'][language]}}
+        </button>
+      </div>
+      </ng-container>
+
+      <ng-container *ngIf="tabId===2">
+      <div class="xg-bank-pannel card bg-primary">
+        <div class="row" style="margin-bottom: 14px;">
+          <div class="col col-4">
+            {{['借出','Borrow'][language]}}
+          </div>
+          <div class="col col-8 text-right">
+            {{['最多借出~','Can Borrow ~'][language]}}: {{info.canBorrow}} xusd
+          </div>
+        </div>
+        <div class="row" style="margin-bottom: 2px;">
+          <div class="col">
+            <input class="form-control" type="text" placeholder="0.0"
+                (keydown)="checkAmount($event)" [(ngModel)]="amountBorrow" [value]="amountBorrow">
+          </div>
+          <div class="col col-auto">
+            <button class="btn btn-sm btn-light" style="margin-right: 6px;" (click)="goMaxBorrow()">
+              {{['最大','MAX'][language]}}
+            </button>
+            xusd
+          </div>
+        </div>
+      </div>
+      <div>
+        <button class="input-btn btn btn-success" style="width:100%; margin-top: 20px;" type="button"
+            [disabled]="waiting" (click)="borrow()">
+          {{waiting ? ['借出中...','Processing...'][language] : ['借出XUSD','Borrow XUSD'][language]}}
+        </button>
+      </div>
+      </ng-container>
+
+      <ng-container *ngIf="tabId===3">
+      <div class="xg-bank-pannel card bg-primary">
+        <div class="row" style="margin-bottom: 14px;">
+          <div class="col col-4">
+            {{['归还','Return'][language]}}
+          </div>
+          <div class="col col-8 text-right">
+            {{['可用','Balance'][language]}}: {{xusdBalance}} xusd
+          </div>
+        </div>
+        <div class="row" style="margin-bottom: 2px;">
+          <div class="col">
+            <input class="form-control" type="text" placeholder="0.0"
+                (keydown)="checkAmount($event)" [(ngModel)]="amountPayBack" [value]="amountPayBack">
+          </div>
+          <div class="col col-auto">
+            <button class="btn btn-sm btn-light" style="margin-right: 6px;" (click)="goMaxPayBack()">
+              {{['最大','MAX'][language]}}
+            </button>
+            xusd
+          </div>
+        </div>
+      </div>
+      <div>
+        <button class="input-btn btn btn-danger" style="width:100%; margin-top: 20px;" type="button"
+            [disabled]="waiting" (click)="payBack()">
+          {{waiting ? ['归还中...','Processing...'][language] : ['归还XUSD','Return XUSD'][language]}}
+        </button>
+      </div>
+      </ng-container>
+    </div>
+
+    <div class="card xg-bank-info">
+      <div class="row">
+        <div class="col">
+          {{['抵押了','Staked'][language]}}
+        </div>
+        <div class="col text-right">
+          {{info.locked}} iost
+        </div>
+      </div>
+      <div class="row">
+        <div class="col">
+          {{['借出了','Borrowed'][language]}}
+        </div>
+        <div class="col text-right">
+          {{info.borrowed}} xusd
+        </div>
+      </div>
+      <div class="row">
+        <div class="col">
+          {{['当前价','Current Price'][language]}}
+        </div>
+        <div class="col text-right text-info">
+          ${{info.price}}
+        </div>
+      </div>
+      <div class="row" *ngIf="info.liquidationPrice">
+        <div class="col">
+          {{['爆仓价','Liquidation Price'][language]}}
+        </div>
+        <div class="col text-right text-danger">
+          ${{info.liquidationPrice}}
+        </div>
+      </div>
+      <div class="row">
+        <div class="col">
+          {{['可解锁','Can Unstake'][language]}}
+        </div>
+        <div class="col text-right">
+          {{['大约','Approx. '][language]}}{{info.canUnlock}} iost
+        </div>
+      </div>
+      <div class="row">
+        <div class="col">
+          {{['可再借','Can borrow'][language]}}
+        </div>
+        <div class="col text-right">
+           {{['大约','Approx. '][language]}}{{info.canBorrow}} xusd
+        </div>
+      </div>
+    </div>
+  </div>
+</div>
+
+</div>
+
+<app-alert-message
+  #alertMessage
+  [titleCN]="alertTitleCN"
+  [titleEN]="alertTitleEN"
+  [bodyCN]="alertBodyCN"
+  [bodyEN]="alertBodyEN"
+  style="height: 100%; width: 100%; z-index: 14; position: absolute; top: 0"
+  *ngIf="willShowAlertMessage"
+  (onClose)="closeAlert()">
+</app-alert-message>
